@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import uk.co.caci.cyp.mis.entities.Student;
+import uk.co.caci.cyp.mis.entity.Student;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -37,7 +37,7 @@ public class ApplicationTests {
         this.mockMvc.perform(get("/api/student/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.fullName", is("Jane Doe")));
+                .andExpect(jsonPath("$.name", is("Jane Doe")));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class ApplicationTests {
     @Test
     public void shouldCreateStudent() throws Exception {
         Student student = new Student();
-        student.setFullName("Unit Test");
+        student.setName("Unit Test");
         MockHttpServletRequestBuilder content = MockMvcRequestBuilders.post("/api/student")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -88,6 +88,6 @@ public class ApplicationTests {
 
         mockMvc.perform(content)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.fullName", is("Unit Test")));
+                .andExpect(jsonPath("$.name", is("Unit Test")));
     }
 }
